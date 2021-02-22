@@ -124,3 +124,5 @@ console.log("Hi");
 curried3(2);
 console.log("hello");
 console.log(curried3(3));
+
+//hello
