@@ -10,13 +10,23 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./src/bird.js":
+/*!*********************!*\
+  !*** ./src/bird.js ***!
+  \*********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ Bird)\n/* harmony export */ });\nconst CONSTANTS = {\n    GRAVITY: 0.8,\n    FLAP_SPEED: -8,\n    TERMINAL_VEL: 12,\n    BIRD_WIDTH: 40,\n    BIRD_HEIGHT: 30\n};\n\nclass Bird {\n\n    constructor (dimensions){\n        this.velocity =0;\n        this.cx = dimensions.width;\n        this.cy = dimensions.height;\n        this.x = Math.floor(this.cx/3);\n        this.y = Math.floor(this.cy/2);\n\n    }\n\n    drawBird(ctx) {\n        ctx.fillStyle = \"yellow\";\n        ctx.fillRect(this.x, this.y, CONSTANTS.BIRD_WIDTH, CONSTANTS.BIRD_HEIGHT);\n        ctx.fill();\n    }\n    animate(ctx) {\n        this.move();\n        this.drawBird(ctx);\n    }\n    \n    move () {\n        this.y += this.velocity;\n        this.velocity += CONSTANTS.GRAVITY;\n    }\n\n    flap () {\n        this.velocity = CONSTANTS.FLAP_SPEED;\n    }\n\n}\n\n//# sourceURL=webpack:///./src/bird.js?");
+
+/***/ }),
+
 /***/ "./src/game.js":
 /*!*********************!*\
   !*** ./src/game.js ***!
   \*********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ FlappyBird)\n/* harmony export */ });\n/* harmony import */ var _level_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./level.js */ \"./src/level.js\");\n\n\nclass FlappyBird {\n  constructor(canvas){\n    this.ctx = canvas.getContext(\"2d\");\n    this.dimensions = { width: canvas.width, height: canvas.height };\n  }\n\n  animate() {\n    this.level.animate(this.ctx);\n  }\n\n  restart() {\n    this.level = new _level_js__WEBPACK_IMPORTED_MODULE_0__.default(this.dimensions);\n    this.animate();\n  }\n}\n\n\n//# sourceURL=webpack:///./src/game.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ FlappyBird)\n/* harmony export */ });\n/* harmony import */ var _bird_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./bird.js */ \"./src/bird.js\");\n/* harmony import */ var _level_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./level.js */ \"./src/level.js\");\n\n\n\nclass FlappyBird {\n  constructor(canvas){\n    this.ctx = canvas.getContext(\"2d\");\n    this.dimensions = { width: canvas.width, height: canvas.height };\n    this.restart();\n  }\n\n  animate() {\n    debugger\n    this.level.animate(this.ctx);\n    this.bird.animate(this.ctx);\n    const that = this;\n    if (this.running) requestAnimationFrame(this.animate.bind(that));\n  }\n\n  restart() {\n    this.level = new _level_js__WEBPACK_IMPORTED_MODULE_1__.default(this.dimensions);\n    this.bird = new _bird_js__WEBPACK_IMPORTED_MODULE_0__.default(this.dimensions);\n    // this.running=false;\n    this.animate();\n    this.play();\n  }\n\n  play() {\n    this.running = true;\n    this.animate();\n  }\n}\n\n\n//# sourceURL=webpack:///./src/game.js?");
 
 /***/ }),
 
@@ -26,7 +36,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _game__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./game */ \"./src/game.js\");\n\n\nconst canvas = document.getElementById('bird-game');\nconst game = new _game__WEBPACK_IMPORTED_MODULE_0__.default(canvas);\ngame.restart();\n\n//# sourceURL=webpack:///./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _game__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./game */ \"./src/game.js\");\n\n\nconst canvas = document.getElementById('bird-game');\nnew _game__WEBPACK_IMPORTED_MODULE_0__.default(canvas);\n\n//# sourceURL=webpack:///./src/index.js?");
 
 /***/ }),
 
